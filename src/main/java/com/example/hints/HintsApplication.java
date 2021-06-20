@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.nativex.hint.NativeHint;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,10 +36,9 @@ public class HintsApplication {
     @Bean
     public ApplicationRunner runner(@Value("classpath:/greeting.txt") Resource resource) {
         return args -> {
-            try (InputStream in = resource.getInputStream()) {
-                List<String> lines = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8)).lines().collect(Collectors.toList());
+            try (InputStream in = resource.getInputStream(); BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
+                List<String> lines = reader.lines().collect(Collectors.toList());
                 log.info("There are {} lines", lines.size());
-
             }
         };
     }

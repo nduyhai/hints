@@ -1,6 +1,11 @@
 # hints
 Spring native example
 
+## Generate aot
+```shell
+mvn spring-aot:generate
+```
+
 ## Build
 
 ```shell
