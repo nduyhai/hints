@@ -11,7 +11,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
-import org.springframework.nativex.hint.NativeHint;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,10 +21,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
-@NativeHint(options = {"--enable-https"})
 @SpringBootApplication
 public class HintsApplication {
 
@@ -37,7 +34,7 @@ public class HintsApplication {
     public ApplicationRunner runner(@Value("classpath:/greeting.txt") Resource resource) {
         return args -> {
             try (InputStream in = resource.getInputStream(); BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
-                List<String> lines = reader.lines().collect(Collectors.toList());
+                List<String> lines = reader.lines().toList();
                 log.info("There are {} lines", lines.size());
             }
         };
