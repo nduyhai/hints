@@ -1,15 +1,15 @@
 # hints
 Spring native example
 
-## Generate aot
+## Generate compire
 ```shell
-mvn spring-aot:generate
+mvn native:compile
 ```
 
 ## Build
 
 ```shell
-mvn -Pnative -DskipTests package
+mvn native:build
 ```
 
 ### Run
@@ -21,5 +21,5 @@ mvn -Pnative -DskipTests package
 ## Test
 
 ```shell
-mvn -Pnative test
+mvn native:test
 ```
