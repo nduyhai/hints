@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ "17", "21" ] # adjust if you only support one
+        java: [ "21", "25" ] # adjust if you only support one
 
     steps:
       - name: Checkout
