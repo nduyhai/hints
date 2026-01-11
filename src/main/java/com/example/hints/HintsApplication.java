@@ -27,9 +27,10 @@ import java.util.UUID;
 
 @Slf4j
 @SpringBootApplication
+@ImportRuntimeHints(FileHints.Config.class)
 public class HintsApplication {
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         SpringApplication.run(HintsApplication.class, args);
     }
 
@@ -46,7 +47,6 @@ public class HintsApplication {
 
 }
 
-@ImportRuntimeHints(FileHints.Config.class)
 class FileHints {
     static class Config implements RuntimeHintsRegistrar {
 
