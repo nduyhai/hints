@@ -37,7 +37,7 @@ docker run --rm -p 8080:8080 hints:latest
 ### Native Dockerfile
 
 ```bash
-docker build -f Dockerfile.native -t hints:native .
+docker build -f Dockerfile.native --build-arg IMAGE_NAME=hints -t hints:native .
 docker run --rm -p 8080:8080 hints:native
 ```
 
@@ -75,4 +75,15 @@ RUNTIME
 ```bash
 docker build -f Dockerfile.cds -t hints:cds .
 docker run --rm -p 8080:8080 hints:cds
+```
+## Maven
+
+Upgrade maven
+```bash
+mvn -N wrapper:wrapper -Dmaven=3.9.9
+
+or 
+
+mvn -N org.apache.maven.plugins:maven-wrapper-plugin:3.2.0:wrapper "-Dmaven=3.9.9"
+
 ```
