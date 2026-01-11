@@ -1,7 +1,7 @@
 # hints
 Spring native example
 
-## Generate compire
+## Generate compile
 ```shell
 mvn native:compile
 ```
