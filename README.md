@@ -3,13 +3,13 @@ Spring native example
 
 ## Generate compile
 ```shell
-mvn native:compile
+mvn -Pnative native:compile
 ```
 
 ## Build
 
 ```shell
-mvn native:build
+mvn -Pnative native:build
 ```
 
 ### Run
@@ -21,5 +21,21 @@ mvn native:build
 ## Test
 
 ```shell
-mvn native:test
+mvn -Pnative native:test
+```
+
+## Docker
+
+### JVM Dockerfile
+
+```bash
+docker build -t hints:latest .
+docker run --rm -p 8080:8080 hints:latest
+
+```
+
+### Native Dockerfile
+
+```bash
+docker build -f Dockerfile.native -t hints:native .
 ```
