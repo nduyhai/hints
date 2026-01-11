@@ -101,5 +101,22 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>cds</id>
+            <properties>
+                <spring.aot.enabled>true</spring.aot.enabled>
+                <!-- keep CDS-related properties/plugin config here if your project needs it -->
+                <spring.cds.enabled>true</spring.cds.enabled>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>aot</id>
+            <properties>
+                <spring.aot.enabled>true</spring.aot.enabled>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

@@ -1,0 +1,15 @@
+spring:
+  main:
+    web-application-type: none
+    banner-mode: off
+    lazy-initialization: false
+    keep-alive: false
+
+  task:
+    scheduling:
+      enabled: false
+
+# optional but common
+management:
+  endpoints:
+    enabled-by-default: false

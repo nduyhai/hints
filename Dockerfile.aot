@@ -4,36 +4,36 @@
 FROM maven:3.9-eclipse-temurin-25 AS build
 WORKDIR /workspace
 
-# cache dependencies
+# If you have Maven Wrapper, copy it for reproducible builds:
+# COPY .mvn/ .mvn/
+# COPY mvnw .
+# RUN chmod +x mvnw
+
 COPY pom.xml .
 RUN --mount=type=cache,target=/root/.m2 \
     mvn -q -DskipTests dependency:go-offline
 
-# build application
 COPY src ./src
+
+# Prefer using your Maven profile if you have it:
+#   mvn -Paot package
+# Otherwise:
 RUN --mount=type=cache,target=/root/.m2 \
-    mvn -q -DskipTests package
+    mvn -q -DskipTests -Dspring.aot.enabled=true package
 
 # ---------- runtime stage ----------
 FROM eclipse-temurin:25-jre
 WORKDIR /app
 
-# run as non-root (best practice)
 RUN useradd -r -u 10001 appuser
 USER appuser
 
-# copy jar
 COPY --from=build /workspace/target/*.jar /app/app.jar
 
 EXPOSE 8080
 
-ENV JAVA_OPTS="\
--XX:MaxRAMPercentage=75 \
--XX:InitialRAMPercentage=25 \
--XX:+ExitOnOutOfMemoryError \
--XX:+HeapDumpOnOutOfMemoryError \
--XX:HeapDumpPath=/tmp \
--Djava.io.tmpdir=/tmp \
-"
+# Keep default quiet; override at runtime if needed:
+#   docker run -e JAVA_OPTS="..." ...
+ENV JAVA_OPTS="-XX:MaxRAMPercentage=75 -XX:InitialRAMPercentage=25 -XX:+ExitOnOutOfMemoryError"
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
